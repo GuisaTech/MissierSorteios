@@ -1,0 +1,126 @@
+﻿
+@{
+    string f = Convert.ToString(ViewBag.Participant.Numbers);
+    var a = f.Split(',').Count();
+    var value = (ViewBag.Raffle.RaffleNumbersValue * a).ToString("C2", ViewBag.Currency);
+
+    Layout = null;
+
+}
+
+<html lang="pt-br">
+<head>
+    <title>Pagamento/Compra - Missier</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/LoginDefault.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap5/css/bootstrap.min.css" />
+    <link rel="icon" type="image/x-icon" href="/image/geral/logo/missier_logo_icon.png" style="background-color:black;" />
+</head>
+<body class="container-fluid">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5" style="width: 100%; box-shadow: 1px 2px 25px black" id="platformMainNavbar">
+
+        <div class="container-fluid">
+            <div style="margin-left: 2px;">
+                <a class="navbar-brand" asp-controller="TonStyle" asp-action="InicialPage"><img src="~/image/geral/logo/missier_logo_pequeno.png" title="Missier Sorteios" alt="Missier Sorteios" /> <span class="ml-3 pt-4">Missier Sorteios</span></a>
+            </div>
+
+            <div class="float-lg-right lead">
+                <span style="color:white;">
+                    Pagamento
+                </span>
+            </div>
+
+            <div class=" m-2">
+                <a class="btn btn-outline-danger" asp-controller="TonStyle" asp-action="InicialPage">Sair</a>
+            </div>
+        </div>
+
+    </nav>
+
+    @if (!ViewBag.DeuRuim)
+    {
+    <div class="row">
+        <div class="col-sm-12">
+            <span class="display-5">Informações</span>
+            <hr />
+        </div>
+        <div class="col-sm-12">
+            <span class="lead"><b>Nome do Participante:</b><br /> @ViewBag.Participant.FullName</span><br />
+            <span class="lead"><b>Número de Telefone:</b> @ViewBag.Participant.PhoneNumber</span><br />
+            <span class="lead"><b>Email: </b> @ViewBag.Participant.Email</span><br />
+            <span class="lead"><b>Quantidade:  </b> @a número(s)</span><br />
+            <span class="lead"><b>Seu(s) Número(s) Para o Sorteio: </b> @ViewBag.Participant.Numbers</span><br />
+            <span class="lead"><b>Valor: </b> @value</span><br />
+        </div>
+    </div>
+
+    <p class="fw-bold text-danger mt-2">
+        Os pagamento feitos na plataforma são processados pelo Mercado Pago.
+        E os recebimentos são feitos na conta de Gustavo Ferreira dos Santos<br>
+        CPF: ***.055.655-***
+    </p>
+
+    <p class="fw-bold text-danger">
+        Caso seja redirecionado para o aplicativo do Mercado Pago, basta apenas
+        retornar para o navegador e continuar a sua compra. <i class="fa-solid fa-face-grin-wink"></i>
+    </p>
+
+    <p class="fw-bold text-muted">Anote seu(s) número(s).</p>
+
+    <input type="hidden" value="@ViewBag.referenceId" name="referenceId" id="referenceId" />
+
+    <div class="col-sm-12 co-md-6 col-lg-4">
+        <div class="d-grid gap-4 mt-3">
+            <span class="btn btn-success" onclick="preparePayment()"> Concluir Compra</span>
+
+            @*<div class="cho-container"></div>*@
+        </div>
+    </div>
+    }
+    else
+    {
+    <div class="container-fluid text-center">
+        <span class="lead">
+            Infelizmente houve algum erro ao buscar os dados relacionados a sua transação, tente participar novamente.    <br />
+            Se persistir, tente mais tarde.
+        </span>
+    </div>
+    }
+
+
+    <div class="mt-5">
+        <span class="lead">Nos siga no Instagram e fique por dentro de TUDO!:</span> <a href="https://www.instagram.com/missiersorteios/" target="_blank">@@Missier Sorteios</a>
+    </div>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+    <script>
+
+        function preparePayment() {
+
+            var id = document.getElementById('referenceId').value;
+            const mp = new MercadoPago('APP_USR-fa5bb9d2-8fa1-47af-a936-6bac506b1ee2' /*'TEST-f89c1425-efa8-4655-aa37-613fe20a1312'*/, {
+                locale: 'pt-BR'
+            });
+
+            const checkout = mp.checkout({
+                preference: {
+                    id: id
+                },
+                autoOpen: true,
+            });
+        }
+
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+

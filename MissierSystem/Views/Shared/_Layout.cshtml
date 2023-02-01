@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Missier</title>
+    <link rel="stylesheet" href="~/css/LoginDefault.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap5/css/bootstrap.min.css" />
+    <link rel="icon" type="image/x-icon" href="/image/geral/logo/missier_logo_icon.png" style="background-color:black;" />
+
+</head>
+<body id="backgroundLoginScreen">
+
+    <div>
+
+        <main role="main" style="margin-bottom: 25px;">
+            @RenderBody()
+        </main>
+        <div class="text-center p-2" id="footerMissier" style="background-color: darkslategray;">
+            <span class="lead" style="color: white"> &copy; Missier - @DateTime.Now.Year</span>
+            <a class="navbar-brand p-2 float-right" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/image/geral/logo/mainLogoPageOriginal128x9.png" width="50px" /></a>
+        </div>
+
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/d83b21e690.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/PlatformScripts/PlatformAllActions.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

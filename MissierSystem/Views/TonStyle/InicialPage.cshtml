@@ -1,0 +1,226 @@
+﻿@model IEnumerable<MissierSystem.Models.TonModality.RaffleBusinessRaffle>
+
+@{
+    ViewData["Title"] = "Missier Sorteios e Rifas - Lista";
+}
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark text-light" style="background-color: black">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/image/geral/logo/missier_logo_pequeno.png" title="Missier Sorteios" alt="Missier Sorteios" /> <span class="ml-3 pt-4">Missier Sorteios</span></a>
+            <div>
+                <span class="lead">Olá, seja bem-vindo!</span>
+            </div>
+            <a asp-action="AccessPage" asp-controller="Collaborators" class="btn d-block btn-outline-info mb-1">Sou Colaborador</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid">
+
+    @if (ViewBag.hasRegister != null)
+    {
+        if (ViewBag.hasRegister == "payed")
+        {
+            <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
+                <strong>Muito Obrigado!</strong> Agora é só esperar, cruze os dedos!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        else if (ViewBag.hasRegister == "registered")
+        {
+            <div class="alert alert-warning alert-dismissible fade show my-2" role="alert">
+                <span>Para conferir o status do seu pagamento, pesquise seu número de telefone logo abaixo e acompanhe.</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    }
+
+</div>
+
+<div class="container-fluid mt-2 bg-dark p-3">
+    <form asp-action="PhoneSearch">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12">
+                <div class="row justify-content-end">
+                    <div class="col-sm-8 col-md-3">
+                        <input type="hidden" name="Status" id="Status" value="approved" />
+                        <input type="text" class="form-control text-center" required min="15" placeholder="Digite seu Telefone : (99) 99999-9999"
+                               id="PhoneSearch" name="PhoneSearch"
+                               onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" />
+                    </div>
+                    <div class="col-sm-4 col-md-3 d-grid gap-5">
+                        <button type="submit" class="btn btn-outline-warning"> Consultar Minhas Compras</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="row">
+    <div class="com-sm-12 col-lg-4">
+        <div class="container-fluid d-grid gap-4 mt-2">
+            <a class="btn btn-success" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Veja Aqui as Orientações Sobre os Sorteios</a>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Tudo Sobre os Sorteios</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                        <p>É muito fácil participar.</p>
+                        <p>Após clicar em participar no sorteio escolhido.</p>
+                        <p>1. Preencha seus dados</p>
+                        <p>2. Selecione quantos números quiser</p>
+                        <p>3. Efetue o pagamento (Seus números ficarão em reserva por 1hr)</p>
+                        <p>4. Após o pagamento, anote os números gerados e aguarde o sorteio.</p>
+                        <p>5. Após o sorteio, caso tenha sido você o vencedor, entraremos em contato pelo seu telefone.</p>
+
+                        Mais informações via stories do Instagram: <a href="https://www.instagram.com/missiersorteios/" target="_blank">@@Missier Sorteios</a>
+                    </div>
+                    <div class="mt-4">
+                        <span class="lead fw-bolder">Regulamentos</span>
+                        <hr />
+                        <p>
+                            O sorteio acontecerá <b>APÓS</b> a venda de <b>TODOS os números.</b>
+                        </p>
+                        <p>
+                            O número sorteado utilizado para determinar o contemplado será formado pelos 5 últimos algarismos do 1º prêmio extraído
+                            pela Loteria Federal, lidos da esquerda para direita, conforme o exemplo abaixo:
+                        </p>
+                        <p class="fw-bold">Extração da Loteria Federal do Brasil.</p>
+                        <p>
+                            1º prêmio = 3 1 5 9 4 5<br />
+                            2º prêmio = 0 4 6 7 2 9<br />
+                            3º prêmio = 2 5 3 0 0 8<br />
+                            <b>O número Sorteado é: 15945 (exemplo)</b>
+                        </p>
+                        <p>
+                            Caso ninguém tenha obtido o número do 1º prêmio, será utilizado o 2º prêmio. 46729 (exemplo)
+                            Sendo 0% de chances de alguém burlar o resultado.
+                        </p>
+                        <p>Todas as Quartas-feiras e Sábados as 19h acontece o sorteio do bilhete premiado na Loteria Federal.</p>
+                        <p>
+                            A data do sorteio será marcada após a venda de todas as cotas. Será baseada no resultado do 1º
+                            prêmio da Loteria Federal da semana subsequente a venda de 100% das cotas.
+                            Sendo assim o resultado do sorteio pode ser adiantado ou adiado.
+                        </p>
+
+                        <p class="fw-bolder">Caso ninguém ganhe pela Loteria Federal faremos o sorteio pelo sorteador próprio do sistema.</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="com-sm-12 col-lg-4">
+        <div class="container-fluid mt-2">
+            <a asp-controller="Home" asp-action="Index" class="btn d-block btn-warning mb-2"><b>Quero ganhar dinheiro fazendo sorteio!</b></a>
+        </div>
+    </div>
+    <div class="com-sm-12 col-lg-4">
+        <div class="container-fluid mt-2">
+            <a href="https://api.whatsapp.com/send?phone=5573999020709" target="_blank" class="btn d-block btn-outline-danger mb-2 lead">
+                <b>Ganhar dinheiro compartilhando sorteio!<i class="fab fa-whatsapp" style="color:green; margin-left: 3px;"></i></b>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid mt-3">
+
+    @foreach (var item in Model)
+    {
+        <div class="card justify-content-center mt-2" style="width: 24rem; display:inline-block;  margin-right: 5px;">
+
+            @if (!String.IsNullOrEmpty(item.RaffleReceiptFile))
+            {
+                var path = item.Id.ToString() + "image";
+                <img src="@item.RaffleReceiptFile" id="@path" style="width: 24rem;" class="card-img-top" alt="...">
+            }
+        <div class="card-body text-center">
+            <h5 class="card-title">@item.RaffleName</h5>
+
+            <span class="card-text">Valor do número: <b>@item.RaffleNumbersValue.ToString("C2", ViewBag.Currency)</b></span>
+
+            @if (item.RaffleStatus == 1)
+            {
+                <p class="card-text">Status: <span style="color:green">Disponível</span></p>
+
+                <div class="d-grid gap-4 mt-2">
+                    <a asp-action="SelectAndReserveIndex" asp-route-id="@item.Id" class="btn btn-danger">Participar</a>
+                </div>
+
+                <div class="d-grid gap-4 mt-2">
+                    <a class="btn btn-success" data-bs-toggle="offcanvas" href="#offcanvasRaffleDatails" onclick="RaffleDetailsTonStyle('@item.RaffleName', '@item.RafflePremiationDescription', '@item.RaffleGeneralDescription')" role="button" aria-controls="offcanvasRaffleDatails">Detalhes</a>
+                </div>
+
+            }
+            else
+            {
+                <p class="card-text">Status: <span style="color:red">Encerrado</span></p>
+                <div>
+                    <a class="btn btn-success" data-bs-toggle="offcanvas" href="#offcanvasRaffleDatails" onclick="RaffleDetailsTonStyle('@item.RaffleName', '@item.RafflePremiationDescription', '@item.RaffleGeneralDescription')" role="button" aria-controls="offcanvasRaffleDatails">Detalhes</a>
+                </div>
+            }
+
+        </div>
+        </div>
+    }
+
+</div>
+
+<div id="messages">
+    <div id="">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRaffleDatails" aria-labelledby="offcanvasRaffleDatailsLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Detalhes sobre o sorteio</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <span class="lead fw-bolder">Nome da Rifa: </span> <span class="lead" id="raffleNameDatails"></span><br /><br />
+                <span class="lead fw-bolder">Detalhes: </span> <span class="lead" id="raffleDescriptionDatails"></span><br /><br />
+                <span class="lead fw-bolder">Detalhes da Premiação: </span> <span class="lead" id="rafflePremiationDatails"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function loadImage(path) {
+
+        var data = document.getElementById(path).getAttribute('src');
+        console.log(path + " " + data)
+
+        var f = data.split(';');
+        var f2 = f[0].split(':');
+
+        const blob = b64toBlob(f[1].replace("base64,", ""), f2[1]);
+        const blobUrl = URL.createObjectURL(blob);
+
+    }
+
+    function RaffleDetailsTonStyle(name, premiation, description) {
+
+        var raffleNameDatails = document.getElementById('raffleNameDatails');
+        var raffleDescriptionDatails = document.getElementById('raffleDescriptionDatails');
+        var rafflePremiationDatails = document.getElementById('rafflePremiationDatails');
+
+        raffleNameDatails.innerText = name;
+        raffleDescriptionDatails.innerText = premiation;
+        rafflePremiationDatails.innerText = description;
+
+    }
+
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
